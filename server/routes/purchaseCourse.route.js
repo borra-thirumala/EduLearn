@@ -4,7 +4,7 @@ import {
   createCheckoutSession,
   getAllPurchasedCourse,
   getCourseDetailWithPurchaseStatus,
-  stripeWebhook,
+  stripeWebhook
 } from "../controllers/coursePurchase.controller.js";
 
 const router = express.Router();

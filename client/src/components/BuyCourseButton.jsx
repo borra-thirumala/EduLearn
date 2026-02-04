@@ -41,7 +41,7 @@ const BuyCourseButton = ({courseId}) => {
       ) : (
         "Purchase Course"
       )}
-      Purchase Course
+      {/* Purchase Course */}
     </Button>
   );
 };
