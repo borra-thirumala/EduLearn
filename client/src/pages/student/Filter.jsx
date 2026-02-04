@@ -19,12 +19,10 @@ const categories = [
   { id: "mern stack development", label: "MERN Stack Development" },
   { id: "backend development", label: "Backend Development" },
   { id: "javascript", label: "Javascript" },
-    { id: "react", label: "React" },
   { id: "python", label: "Python" },
   { id: "docker", label: "Docker" },
   { id: "mongodb", label: "MongoDB" },
   { id: "html", label: "HTML" },
-  {id:"css",label:"CSS"}
 ];
 
 const Filter = ({ handleFilterChange }) => {

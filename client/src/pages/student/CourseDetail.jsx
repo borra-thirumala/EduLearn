@@ -41,9 +41,7 @@ const CourseDetail = () => {
           <h1 className="font-bold text-2xl md:text-3xl">
             {course?.courseTitle}
           </h1>
-          <p className="text-base md:text-lg">
-     {course?.subTitle || "Learn and master this course"}
-   </p>
+          <p className="text-base md:text-lg">Course Sub-title</p>
           <p>
             Created By{" "}
             <span className="text-[#C0C4FC] underline italic">
@@ -67,7 +65,7 @@ const CourseDetail = () => {
           <Card>
             <CardHeader>
               <CardTitle>Course Content</CardTitle>
-              <CardDescription>{course.lectures.length} lectures</CardDescription>
+              <CardDescription>4 lectures</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
               {course.lectures.map((lecture, idx) => (
@@ -92,13 +90,9 @@ const CourseDetail = () => {
                   controls={true}
                 />
               </div>
-              <h1 className="font-medium">
-  {course.lectures[0]?.lectureTitle || "Lecture title"}
-</h1>
+              <h1>Lecture title</h1>
               <Separator className="my-2" />
-             <h1 className="text-lg md:text-xl font-semibold">
-  ₹{course?.coursePrice || "Price not available"}
-</h1>
+              <h1 className="text-lg md:text-xl font-semibold">Course Price</h1>
             </CardContent>
             <CardFooter className="flex justify-center p-4">
               {purchased ? (

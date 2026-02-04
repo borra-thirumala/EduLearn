@@ -57,15 +57,15 @@ const CourseTab = () => {
   useEffect(() => {
     if (courseByIdData?.course) {
       const course = courseByIdData?.course;
-     setInput({
-  courseTitle: course.courseTitle,
-  subTitle: course.subTitle === "undefined" ? "" : course.subTitle,
-  description: course.description,
-  category: course.category,
-  courseLevel: course.courseLevel,
-  coursePrice: course.coursePrice,
-  courseThumbnail: "",
-});
+      setInput({
+        courseTitle: course.courseTitle,
+        subTitle: course.subTitle,
+        description: course.description,
+        category: course.category,
+        courseLevel: course.courseLevel,
+        coursePrice: course.coursePrice,
+        courseThumbnail: "",
+      });
     }
   }, [courseByIdData]);
 
@@ -101,25 +101,18 @@ const CourseTab = () => {
     }
   };
 
-const updateCourseHandler = async () => {
-  const formData = new FormData();
-  formData.append("courseTitle", input.courseTitle);
-  formData.append("description", input.description);
-  formData.append("category", input.category);
-  formData.append("courseLevel", input.courseLevel);
-  formData.append("coursePrice", input.coursePrice);
-
-  if (input.subTitle?.trim()) {
+  const updateCourseHandler = async () => {
+    const formData = new FormData();
+    formData.append("courseTitle", input.courseTitle);
     formData.append("subTitle", input.subTitle);
-  }
-
-  if (input.courseThumbnail) {
+    formData.append("description", input.description);
+    formData.append("category", input.category);
+    formData.append("courseLevel", input.courseLevel);
+    formData.append("coursePrice", input.coursePrice);
     formData.append("courseThumbnail", input.courseThumbnail);
-  }
 
-  await editCourse({ formData, courseId });
-};
-
+    await editCourse({ formData, courseId });
+  };
 
   const publishStatusHandler = async (action) => {
     try {
@@ -187,7 +180,7 @@ const updateCourseHandler = async () => {
             <Label>Subtitle</Label>
             <Input
               type="text"
-              name="subTitle"
+              name="SubTitle"
               value={input.subTitle}
               onChange={changeEventHandler}
               placeholder="Ex. Become a Fullstack developer"
@@ -224,12 +217,10 @@ const updateCourseHandler = async () => {
                       MERN Stack Development
                     </SelectItem>
                     <SelectItem value="Javascript">Javascript</SelectItem>
-                    <SelectItem value="React">React</SelectItem>
                     <SelectItem value="Python">Python</SelectItem>
                     <SelectItem value="Docker">Docker</SelectItem>
                     <SelectItem value="MongoDB">MongoDB</SelectItem>
                     <SelectItem value="HTML">HTML</SelectItem>
-                    <SelectItem value="CSS">CSS</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
