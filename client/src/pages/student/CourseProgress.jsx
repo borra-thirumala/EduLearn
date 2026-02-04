@@ -137,8 +137,8 @@ if (!data || !data.data) return <p>Course details not found</p>;
                 key={lecture._id}
                 className={`mb-3 hover:cursor-pointer transition transform ${
                   lecture._id === currentLecture?._id
-                    ? "bg-gray-200"
-                    : "bg-gray-800"
+                         ? "bg-gray-200 dark:bg-gray-700"
+  : "bg-white dark:bg-gray-800"
                 }`}
                 onClick={() => handleSelectLecture(lecture)}
               >

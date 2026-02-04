@@ -54,18 +54,18 @@ const CourseTab = () => {
 
   const [publishCourse, {}] = usePublishCourseMutation();
 
-  useEffect(() => {
+ useEffect(() => {
     if (courseByIdData?.course) {
       const course = courseByIdData?.course;
-      setInput({
-        courseTitle: course.courseTitle,
-        subTitle: course.subTitle,
-        description: course.description,
-        category: course.category,
-        courseLevel: course.courseLevel,
-        coursePrice: course.coursePrice,
-        courseThumbnail: "",
-      });
+     setInput({
+  courseTitle: course.courseTitle,
+  subTitle: course.subTitle === "undefined" ? "" : course.subTitle,
+  description: course.description,
+  category: course.category,
+  courseLevel: course.courseLevel,
+  coursePrice: course.coursePrice,
+  courseThumbnail: "",
+});
     }
   }, [courseByIdData]);
 
@@ -180,7 +180,7 @@ const CourseTab = () => {
             <Label>Subtitle</Label>
             <Input
               type="text"
-              name="SubTitle"
+              name="subTitle"
               value={input.subTitle}
               onChange={changeEventHandler}
               placeholder="Ex. Become a Fullstack developer"

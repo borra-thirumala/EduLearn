@@ -41,7 +41,11 @@ const LectureTab = () => {
     if (lecture) {
       setLectureTitle(lecture.lectureTitle);
       setIsFree(lecture.isPreviewFree);
-      setUploadVideoInfo(lecture.videoInfo);
+      setUploadVideoInfo({
+  videoUrl: lecture.videoUrl,
+  publicId: lecture.publicId,
+});
+
     }
   }, [lecture]);
 
@@ -83,15 +87,21 @@ const LectureTab = () => {
     }
   };
 
-  const editLectureHandler = async () => {
-    await editLecture({
-      lectureTitle,
-      videoInfo: uploadVideoInfo,
-      isPreviewFree: isFree,
-      courseId,
-      lectureId,
-    });
-  };
+ const editLectureHandler = async () => {
+  if (!uploadVideoInfo?.videoUrl || !uploadVideoInfo?.publicId) {
+    toast.error("Please upload a video first");
+    return;
+  }
+
+  await editLecture({
+    lectureTitle,
+    videoUrl: uploadVideoInfo.videoUrl,
+    publicId: uploadVideoInfo.publicId,
+    isPreviewFree: isFree,
+    courseId,
+    lectureId,
+  });
+};
 
   const removeLectureHandler = async () => {
     await removeLecture(lectureId);
@@ -170,6 +180,21 @@ const LectureTab = () => {
           />
           <Label htmlFor="airplane-mode">Is this Video Free</Label>
         </div>
+
+                {/* ADD THIS NEW VIDEO PREVIEW SECTION */}
+{uploadVideoInfo?.videoUrl && (
+  <div className="my-5">
+    <Label>Video Preview</Label>
+    <div className="mt-2">
+      <video
+        src={uploadVideoInfo.videoUrl}
+        controls
+        className="w-full rounded-md"
+        controlsList="nodownload"
+      />
+    </div>
+  </div>
+)}
 
         {mediaProgress && (
           <div className="my-4">

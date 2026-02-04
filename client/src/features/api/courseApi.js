@@ -88,19 +88,20 @@ export const courseApi = createApi({
       providesTags: ["Refetch_Lecture"],
     }),
 
-    editLecture: builder.mutation({
-      query: ({
-        lectureTitle,
-        videoInfo,
-        isPreviewFree,
-        courseId,
-        lectureId,
-      }) => ({
-        url: `/${courseId}/lecture/${lectureId}`,
-        method: "POST",
-        body: { lectureTitle, videoInfo, isPreviewFree },
-      }),
-    }),
+      editLecture: builder.mutation({
+  query: ({
+    lectureTitle,
+    videoUrl,
+    publicId,
+    isPreviewFree,
+    courseId,
+    lectureId,
+  }) => ({
+    url: `/${courseId}/lecture/${lectureId}`,
+    method: "POST",
+    body: { lectureTitle, videoUrl, publicId, isPreviewFree },
+  }),
+}),
 
     removeLecture: builder.mutation({
       query: (lectureId) => ({
