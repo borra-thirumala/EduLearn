@@ -30,6 +30,15 @@ export const purchaseApi = createApi({
         method: "GET",
       }),
     }),
+
+    // NEW: Verify payment mutation
+    verifyPayment: builder.mutation({
+      query: (sessionId) => ({
+        url: "/verify-payment",
+        method: "POST",
+        body: { sessionId },
+      }),
+    }),
   }),
 });
 
@@ -37,4 +46,5 @@ export const {
   useCreateCheckoutSessionMutation,
   useGetCourseDetailWithStatusQuery,
   useGetPurchasedCoursesQuery,
+  useVerifyPaymentMutation, // NEW export
 } = purchaseApi;

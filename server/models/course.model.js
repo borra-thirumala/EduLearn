@@ -47,4 +47,26 @@ const courseSchema = new mongoose.Schema({
     }
 }, {timestamps:true});
 
+const coursePurchaseSchema = new mongoose.Schema({
+  courseId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Course",
+    required: true,
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  amount: Number,
+  status: {
+    type: String,
+    enum: ["pending", "completed"],
+    default: "pending",
+  },
+  paymentId: String,          // session.id
+  paymentIntentId: String,    // ⭐ ADD THIS
+}, { timestamps: true });
+
+
 export const Course = mongoose.model("Course", courseSchema);

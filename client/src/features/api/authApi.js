@@ -33,29 +33,41 @@ export const authApi = createApi({
                 }
             }
         }),
+logoutUser: builder.mutation({
+  query: () => ({
+    url: "logout",
+    method: "GET",
+  }),
+  async onQueryStarted(_, { queryFulfilled, dispatch }) {
+    try {
+      await queryFulfilled; // ✅ wait for backend response
+      dispatch(userLoggedOut());
+    } catch (error) {
+      console.log(error);
+    }
+  },
+}),
 
-        logoutUser: builder.mutation({
-            query: () => ({
-                url:"logout",
-                method:"GET"
-            }),
-             async onQueryStarted(_, {queryFulfilled, dispatch}) {
-                try{
-                    dispatch(userLoggedOut());
-                }
-                catch (error) {
-                    console.log(error);
-                }
-            }
-        }),
 
 
-        loadUser: builder.query({
-            query: () => ({
-                url:"profile",
-                method:"GET"
-            })
-        }),
+       loadUser: builder.query({
+  query: () => ({
+    url: "profile",
+    method: "GET",
+  }),
+  async onQueryStarted(_, { queryFulfilled, dispatch }) {
+    try {
+      const { data } = await queryFulfilled;
+      dispatch(userLoggedIn({ user: data.user }));
+    } catch (error) {
+      // ✅ ONLY logout if profile itself fails
+      if (error?.error?.status === 401) {
+        dispatch(userLoggedOut());
+      }
+    }
+  },
+}),
+
 
         updateUser: builder.mutation({
             query: (formData) => ({

@@ -8,24 +8,29 @@ import courseRoute from "./routes/course.route.js";
 import mediaRoute from "./routes/media.route.js";
 import purchaseRoute from "./routes/purchaseCourse.route.js";
 import courseProgressRoute from "./routes/courseProgress.route.js";
+import { stripeWebhook } from "./controllers/coursePurchase.controller.js";
 
 console.log("app.js: Starting server configuration...");
 
 dotenv.config({});
-console.log("app.js: Dotenv configuration loaded.");
-
-console.log("app.js: Attempting to connect to database...");
-//call database connection here
 connectDB();
+
 const app = express();
-
 const PORT = process.env.PORT || 3000;
-console.log(`app.js: Server will attempt to listen on port ${PORT}`);
 
-//default middleware
-console.log("app.js: Applying express.json() middleware.");
+/* =====================================================
+   🔥 STRIPE WEBHOOK (MUST BE FIRST)
+   ===================================================== */
+app.post(
+  "/api/v1/purchase/webhook",
+  express.raw({ type: "application/json" }),
+  stripeWebhook
+);
+
+/* =====================================================
+   NORMAL MIDDLEWARE (AFTER WEBHOOK)
+   ===================================================== */
 app.use(express.json());
-console.log("app.js: Applying cookie-parser() middleware.");
 app.use(cookieParser());
 
 app.use(
@@ -35,19 +40,15 @@ app.use(
   })
 );
 
-//api's
-console.log("app.js: Registering user routes under /api/v1/user.");
-
+/* =====================================================
+   ROUTES
+   ===================================================== */
 app.use("/api/v1/media", mediaRoute);
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/course", courseRoute);
-app.use("/api/v1/purchase",purchaseRoute);
-app.use("/api/v1/progress",courseProgressRoute);
+app.use("/api/v1/purchase", purchaseRoute);
+app.use("/api/v1/progress", courseProgressRoute);
 
 app.listen(PORT, () => {
-  console.log(`app.js: Server successfully listening at port ${PORT}`);
-  console.log(`Server listen at port ${PORT}`);
+  console.log(`✅ Server running at http://localhost:${PORT}`);
 });
-console.log(
-  "app.js: Synchronous server setup complete. Waiting for server to listen..."
-);

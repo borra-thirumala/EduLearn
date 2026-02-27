@@ -22,7 +22,10 @@ const coursePurchaseSchema = new mongoose.Schema({
     paymentId:{
         type:String,
         required:true
-    }
+    },
+    paymentIntentId: {
+  type: String,
+},
 }, {timestamps:true});
 
 export const CoursePurchase = mongoose.model('CoursePurchase',coursePurchaseSchema);

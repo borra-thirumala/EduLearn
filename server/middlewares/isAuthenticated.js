@@ -21,12 +21,12 @@ const isAuthenticated = async (req, res, next) => {
     req.id = decode.userId;
     next();
   } catch (error) {
-    console.log("Auth Middleware Error:", error);
-    return res.status(500).json({
-      message: "Authentication failed",
-      success: false,
-    });
-  }
+  console.log("Auth Middleware Error:", error);
+  return res.status(401).json({
+    message: "User not authenticated",
+    success: false,
+  });
+}
 };
 
 export default isAuthenticated;
