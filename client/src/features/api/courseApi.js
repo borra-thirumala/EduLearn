@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const COURSE_API = "https://edulearn-f15d.onrender.com/api/v1/course";
+const COURSE_API = "https://edulearn-fl5d.onrender.com/api/v1/course";
 
 export const courseApi = createApi({
   reducerPath: "courseApi",
